@@ -5,8 +5,8 @@ load('couplings.mat')
 %% Configuration of the system
 
 settings.tx_power = 13; % dBm
-settings.min_power = -40; % dBm
-settings.sensitivity = 48; % dB
+settings.min_power = -30; % dBm
+settings.sensitivity = 38; % dB
 settings.pd_min = 1; % V-out
 settings.pd_max = 5; % V-out
 settings.coupler_losses = 3; % dB
