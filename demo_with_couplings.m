@@ -1,14 +1,25 @@
 %% Load Couplings
+clear all;
 load('couplings.mat')
+
+%% Configuration of the system
+
+settings.tx_power = 13; % dBm
+settings.min_power = -40; % dBm
+settings.sensitivity = 48; % dB
+settings.pd_min = 1; % V-out
+settings.pd_max = 5; % V-out
+settings.coupler_losses = 3; % dB
+settings.comb_splitter_losses = 6; % dB
+settings.additional_path_delay_before_combination = 60;
+settings.adc_resolution = 12;
 
 %% Calibration - Matched
 mismatch_GT = C_measurement ./ C_sim;
 mismatch_GT(:,1) = mismatch_GT(:,1) ./ mismatch_GT(1,1);
 
-adc_resolution = 12;
-additional_path_delay_before_combination = 90;
-[pwr_single, pwr_combined] = get_PD_readings(C_measurement(:, 1), adc_resolution, additional_path_delay_before_combination);
-mismatches_M = get_mismatches(pwr_single, pwr_combined, C_sim(:, 1), additional_path_delay_before_combination);
+[pwr_single, pwr_combined] = get_PD_readings(C_measurement(:, 1), settings);
+mismatches_M = get_mismatches(pwr_single, pwr_combined, C_sim(:, 1), settings.additional_path_delay_before_combination);
 
 upto = 9;
 
